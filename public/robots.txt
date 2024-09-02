@@ -1,3 +1,8 @@
-# https://www.robotstxt.org/robotstxt.html
+# public/robots.txt
+
+# Allow all crawlers access to all content
 User-agent: *
 Disallow:
+
+# Optionally, disallow specific paths
+# Disallow: /private/
