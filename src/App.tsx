@@ -8,10 +8,13 @@ import Summary from './pages/Summary';
 import NotFound from './pages/NotFound';
 import Header from './components/Header';
 import EntryPage from './pages/EntryPage';
+import { ThemeProvider } from 'styled-components';
+import { theme } from './styles/theme';
 
 const App: React.FC = () => {
     return (
         <Provider store={store}>
+            <ThemeProvider theme={theme}>
             <Router>
                 <div className="app">
                     <Header />
@@ -24,6 +27,7 @@ const App: React.FC = () => {
                     </Routes>
                 </div>
             </Router>
+            </ThemeProvider>
         </Provider>
     );
 };
