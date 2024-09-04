@@ -7,6 +7,7 @@ import SalaryIndications from './pages/SalaryIndications';
 import Summary from './pages/Summary';
 import NotFound from './pages/NotFound';
 import Header from './components/Header';
+import EntryPage from './pages/EntryPage';
 
 const App: React.FC = () => {
     return (
@@ -15,7 +16,7 @@ const App: React.FC = () => {
                 <div className="app">
                     <Header />
                     <Routes>
-                        <Route path="/" element={<h1>Welcome to Buena</h1>} />
+                        <Route path="/" element={<EntryPage />} />
                         <Route path="/personal-info" element={<PersonalInfo />} />
                         <Route path="/salary-indications" element={<SalaryIndications />} />
                         <Route path="/summary" element={<Summary />} />

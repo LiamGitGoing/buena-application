@@ -6,7 +6,10 @@ const ProgressIndicator: React.FC = () => {
     const location = useLocation();
     const steps = ['/personal-info', '/salary-indications', '/summary'];
     const currentStep = steps.indexOf(location.pathname) + 1;
-    const progressPercentage = (currentStep / steps.length) * 100;
+
+    if (location.pathname === '/') {
+        return null; 
+    }
 
     return (
         <div className="progress-indicator">
