@@ -1,8 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'; 
-import { setSalary } from '../context/formSlice';
-import RadioButton from '../components/RadioButton';
 import Button from '../components/Button';
 
 const EntryPage: React.FC = () => {
