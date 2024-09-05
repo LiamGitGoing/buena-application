@@ -1,20 +1,23 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 import ProgressIndicator from './ProgressIndicator';
+import { HeaderWrapper, LogoWrapper } from './HeaderStyled';
+import logo from '../assets/images/logo.svg';
 
 const Header: React.FC = () => {
-
-
-    return (
-        <header>
-            <h1>Buena Tenant Application</h1>
-            <div>
-                <div>
-                    <ProgressIndicator />
-                </div>
-            </div>
-        </header>
-    );
+  return (
+    <HeaderWrapper>
+      <LogoWrapper>
+        <a href='https://www.buena.com'>
+          <img src={logo} alt='Buena company logo' width='83' height='32' />
+        </a>
+      </LogoWrapper>
+      <div>
+        <div>
+          <ProgressIndicator />
+        </div>
+      </div>
+    </HeaderWrapper>
+  );
 };
 
 export default Header;
