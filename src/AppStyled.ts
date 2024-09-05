@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import { theme } from './styles/theme';
 
 export const Wrapper = styled.div`
-  padding-left: 2.5rem;
-  padding-right: 2.5rem;
-  max-width: 1710px;
+  background-color: ${theme.colors.lightGrey};
+  min-height: 100vh;
+  min-width: 100vw;
 `;
