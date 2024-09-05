@@ -19,7 +19,21 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        use: ['@svgr/webpack', 'url-loader'], // Using both loaders
+        use: ['@svgr/webpack', 'url-loader'],
+      },
+      {
+        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10000,
+              name: '[name].[hash].[ext]',
+              outputPath: 'media/',
+              publicPath: 'media/',
+            },
+          },
+        ],
       },
     ],
   },
