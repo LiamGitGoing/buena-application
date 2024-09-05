@@ -23,6 +23,7 @@
     "redux": "^5.0.1",
     "styled-components": "^6.1.13",
     "typescript": "^4.4.2",
+    "url-loader": "^4.1.1",
     "web-vitals": "^2.1.0"
   },
   "devDependencies": {
