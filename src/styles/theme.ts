@@ -15,4 +15,10 @@ export const theme = {
   fonts: {
     primary: "Inter Display",
   },
+  sizes: {
+    header: "64px",
+    title: "32px",
+    subtitle: "24px",
+    body: "16px",
+  },
 };
