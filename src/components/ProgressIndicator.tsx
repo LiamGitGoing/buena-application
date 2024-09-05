@@ -3,33 +3,37 @@ import { useLocation } from 'react-router-dom';
 import { theme } from '../styles/theme';
 import { Progress as AntProgress } from 'antd';
 import { ProgressWrapper } from './ProgressIndicatorStyled';
+import { CheckOutlined } from '@ant-design/icons';
 
-const ProgressIndicator: React.FC = () => {
+export interface IProgressIndicator {
+  isRoot?: boolean;
+}
+
+const ProgressIndicator: React.FC<IProgressIndicator> = ({
+  isRoot = false,
+}) => {
   const location = useLocation();
   const steps = ['/personal-info', '/salary-indications'];
   const currentStep = steps.indexOf(location.pathname);
-  var percentage = (currentStep / steps.length) * 100;
-
-  if (location.pathname === '/') {
-    return null;
-  }
+  let percentage = (currentStep / steps.length) * 100;
 
   if (location.pathname === '/summary') {
     percentage = 100;
   }
 
   const status = percentage === 100 ? 'success' : 'active';
-  const strokeColor =
-    status === 'success' ? theme.colors.darkYellow : theme.colors.lightYellow;
 
   return (
     <div>
-      <ProgressWrapper>
+      <ProgressWrapper isRoot={isRoot}>
         <AntProgress
           percent={percentage}
           status={status}
-          strokeColor={strokeColor}
+          strokeColor={theme.colors.darkGrey}
           trailColor={theme.colors.lightGrey}
+          format={(percentage) =>
+            percentage === 100 ? <CheckOutlined /> : `${percentage}%`
+          }
         />
       </ProgressWrapper>
     </div>
