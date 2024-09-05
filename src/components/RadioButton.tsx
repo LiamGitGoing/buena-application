@@ -10,7 +10,7 @@ interface RadioButtonProps {
 
 const RadioButton: React.FC<RadioButtonProps> = ({ name, value, checked, onChange, label }) => {
     return (
-        <div className="radio-group">
+        <div>
             <input
                 type="radio"
                 name={name}
