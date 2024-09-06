@@ -21,4 +21,10 @@ export const theme = {
     subtitle: '24px',
     body: '16px',
   },
+  weights: {
+    light: '300',
+    regular: '400',
+    medium: '500',
+    bold: '700',
+  },
 };
