@@ -9,7 +9,7 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ children }) => {
   return (
     <CardWrapper>
-      <AntCard bordered={false} style={{ width: 700, height: 550 }}>
+      <AntCard bordered={false} style={{ width: 700, height: 650 }}>
         {children}
       </AntCard>
     </CardWrapper>
