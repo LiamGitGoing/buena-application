@@ -5,7 +5,7 @@ import store from './context/store';
 import PersonalInfo from './pages/PersonalInfo';
 import SalaryIndications from './pages/SalaryIndications';
 import Summary from './pages/Summary';
-import NotFound from './pages/NotFound';
+import NotFound from './pages/404';
 import Header from './components/Header';
 import EntryPage from './pages/EntryPage';
 import { ThemeProvider } from 'styled-components';
