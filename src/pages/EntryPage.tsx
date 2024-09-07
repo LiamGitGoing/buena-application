@@ -30,6 +30,7 @@ const EntryPage: React.FC = () => {
             muted
             loop
             style={{ width: '60%', borderRadius: '8px' }}
+            data-testid='hero-video'
           />
         </VideoWrapper>
         <ButtonWrapper>
