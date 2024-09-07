@@ -1,51 +1,141 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
+import { configureStore } from '@reduxjs/toolkit';
 import formReducer from '../../context/formSlice';
+import { FormState } from '../../types/types';
 import PersonalInfo from '../PersonalInfo';
-import renderWithProviders from '../../context/helpers/renderWithProviders';
-import { useNavigate } from 'react-router-dom';
+import '@testing-library/jest-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-// Mock react-router-dom's useNavigate hook
 jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
   useNavigate: jest.fn(),
+  useLocation: jest.fn(),
 }));
 
+const createTestStore = (initialState: FormState) => {
+  return configureStore({
+    reducer: {
+      form: formReducer,
+    },
+    preloadedState: {
+      form: initialState,
+    },
+  });
+};
+
+const renderWithState = (initialState: FormState) => {
+  const store = createTestStore(initialState);
+  return render(
+    <Provider store={store}>
+      <PersonalInfo />
+    </Provider>
+  );
+};
+
 describe('PersonalInfo Component', () => {
-  it('renders the input fields and button correctly', () => {
-    renderWithProviders(<PersonalInfo />);
-
-    expect(screen.getByPlaceholderText('Full Name')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Email')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Phone Number')).toBeInTheDocument();
-    expect(screen.getByText('Next')).toBeInTheDocument();
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
 
-  it('dispatches setFullName, setEmail, and setPhoneNumber actions on input change', () => {
-    const store = configureStore({ reducer: { form: formReducer } });
-    renderWithProviders(<PersonalInfo />, { store });
+  it('renders without crashing', () => {
+    (useLocation as jest.Mock).mockReturnValue({ pathname: '/personal-info' });
+    renderWithState({
+      fullName: '',
+      email: '',
+      phoneNumber: '',
+      streetAddress: '',
+      city: '',
+      postalCode: '',
+      salary: '',
+    });
 
-    fireEvent.change(screen.getByPlaceholderText('Full Name'), { target: { value: 'John Doe' } });
-    fireEvent.change(screen.getByPlaceholderText('Email'), { target: { value: 'john@example.com' } });
-    fireEvent.change(screen.getByPlaceholderText('Phone Number'), { target: { value: '1234567890' } });
-
-    const state = store.getState().form;
-    expect(state.fullName).toBe('John Doe');
-    expect(state.email).toBe('john@example.com');
-    expect(state.phoneNumber).toBe('1234567890');
+    expect(screen.getByText(/Personal Information/i)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/Full Name/i)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/Email/i)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/Phone Number/i)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/Street Address/i)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/Postal Code/i)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/City/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Next/i })).toBeInTheDocument();
   });
 
-  it('navigates to the next page when the Next button is clicked', () => {
-    const mockNavigate = jest.fn();
-    (useNavigate as jest.Mock).mockReturnValue(mockNavigate);
+  it('navigates to /salary-indications when the "Next" button is clicked and form is valid', () => {
+    (useLocation as jest.Mock).mockReturnValue({ pathname: '/personal-info' });
+    const navigate = jest.fn();
+    (useNavigate as jest.Mock).mockReturnValue(navigate);
 
-    renderWithProviders(<PersonalInfo />);
+    renderWithState({
+      fullName: 'John Doe',
+      email: 'john@example.com',
+      phoneNumber: '1234567890',
+      streetAddress: '123 Main St',
+      city: 'Sample City',
+      postalCode: '12345',
+      salary: '50000',
+    });
 
-    fireEvent.click(screen.getByText('Next'));
+    fireEvent.click(screen.getByRole('button', { name: /Next/i }));
 
-    expect(mockNavigate).toHaveBeenCalledWith('/salary-indications');
+    expect(navigate).toHaveBeenCalledWith('/salary-indications');
+  });
+
+  it('disables the "Next" button when any form field value exceeds 40 characters', () => {
+    (useLocation as jest.Mock).mockReturnValue({ pathname: '/personal-info' });
+    renderWithState({
+      fullName: 'John Doe',
+      email: 'john@example.com',
+      phoneNumber: '12345678901234567890123456789012345678901',
+      streetAddress: '123 Main St',
+      city: 'Sample City',
+      postalCode: '12345',
+      salary: '50000',
+    });
+
+    expect(screen.getByRole('button', { name: /Next/i })).toBeDisabled();
+  });
+
+  it('enables the "Next" button when all form field values are valid', () => {
+    (useLocation as jest.Mock).mockReturnValue({ pathname: '/personal-info' });
+    renderWithState({
+      fullName: 'John Doe',
+      email: 'john@example.com',
+      phoneNumber: '1234567890',
+      streetAddress: '123 Main St',
+      city: 'Sample City',
+      postalCode: '12345',
+      salary: '50000',
+    });
+
+    expect(screen.getByRole('button', { name: /Next/i })).not.toBeDisabled();
+  });
+
+  it('updates form field values in the Redux store on input change', () => {
+    (useLocation as jest.Mock).mockReturnValue({ pathname: '/personal-info' });
+    const store = createTestStore({
+      fullName: '',
+      email: '',
+      phoneNumber: '',
+      streetAddress: '',
+      city: '',
+      postalCode: '',
+      salary: '',
+    });
+
+    render(
+      <Provider store={store}>
+        <PersonalInfo />
+      </Provider>
+    );
+
+    fireEvent.change(screen.getByPlaceholderText(/Full Name/i), {
+      target: { value: 'Jane Doe' },
+    });
+    fireEvent.change(screen.getByPlaceholderText(/Email/i), {
+      target: { value: 'jane@example.com' },
+    });
+
+    const state = store.getState();
+    expect(state.form.fullName).toBe('Jane Doe');
+    expect(state.form.email).toBe('jane@example.com');
   });
 });
