@@ -25,7 +25,7 @@ const ProgressIndicator: React.FC<IProgressIndicator> = ({
 
   return (
     <div>
-      <ProgressWrapper isRoot={isRoot}>
+      <ProgressWrapper $isRoot={isRoot}>
         <AntProgress
           percent={percentage}
           status={status}
