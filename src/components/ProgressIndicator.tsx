@@ -34,6 +34,7 @@ const ProgressIndicator: React.FC<IProgressIndicator> = ({
           format={(percentage) =>
             percentage === 100 ? <CheckOutlined /> : `${percentage}%`
           }
+          data-testid='progress-indicator'
         />
       </ProgressWrapper>
     </div>
