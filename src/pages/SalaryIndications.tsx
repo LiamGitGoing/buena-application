@@ -37,7 +37,7 @@ const SalaryIndications: React.FC = () => {
           <RadioStyled.Group value={salary} onChange={handleChange}>
             <Space direction='vertical'>
               <RadioItem>
-                <RadioStyled value="0-1'000">0-1'000</RadioStyled>
+                <RadioStyled value="0 - 1'000">0 - 1'000</RadioStyled>
               </RadioItem>
               <RadioItem>
                 <RadioStyled value="1'000 - 2'000">1'000 - 2'000</RadioStyled>
