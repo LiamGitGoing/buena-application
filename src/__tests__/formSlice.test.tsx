@@ -3,7 +3,10 @@ import formReducer, {
   setEmail,
   setPhoneNumber,
   setSalary,
-} from '../formSlice';
+  setStreetAddress,
+  setPostalCode,
+  setCity,
+} from '../context/formSlice';
 
 describe('formSlice reducer', () => {
   const initialState = {
@@ -11,9 +14,9 @@ describe('formSlice reducer', () => {
     email: '',
     phoneNumber: '',
     salary: '',
-    city: '',
-    postalCode: '',
     streetAddress: '',
+    postalCode: '',
+    city: '',
   };
 
   it('should return the initial state', () => {
@@ -42,5 +45,23 @@ describe('formSlice reducer', () => {
     const action = { type: setSalary.type, payload: '3000-4000' };
     const state = formReducer(initialState, action);
     expect(state.salary).toEqual('3000-4000');
+  });
+
+  it('should handle setStreetAddress', () => {
+    const action = { type: setStreetAddress.type, payload: '123 Main St' };
+    const state = formReducer(initialState, action);
+    expect(state.streetAddress).toEqual('123 Main St');
+  });
+
+  it('should handle setPostalCode', () => {
+    const action = { type: setPostalCode.type, payload: '12345' };
+    const state = formReducer(initialState, action);
+    expect(state.postalCode).toEqual('12345');
+  });
+
+  it('should handle setCity', () => {
+    const action = { type: setCity.type, payload: 'Springfield' };
+    const state = formReducer(initialState, action);
+    expect(state.city).toEqual('Springfield');
   });
 });
