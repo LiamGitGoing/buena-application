@@ -1,4 +1,9 @@
-import formReducer, { setFullName, setEmail, setPhoneNumber, setSalary } from '../formSlice';
+import formReducer, {
+  setFullName,
+  setEmail,
+  setPhoneNumber,
+  setSalary,
+} from '../formSlice';
 
 describe('formSlice reducer', () => {
   const initialState = {
@@ -6,6 +11,9 @@ describe('formSlice reducer', () => {
     email: '',
     phoneNumber: '',
     salary: '',
+    city: '',
+    postalCode: '',
+    streetAddress: '',
   };
 
   it('should return the initial state', () => {
