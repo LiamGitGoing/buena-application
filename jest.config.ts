@@ -1,9 +1,9 @@
 module.exports = {
+  verbose: true,
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
-  setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect'],
+  setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
+  moduleDirectories: ['node_modules', 'src'],
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
-  transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest',
-  },
+  testPathIgnorePatterns: ['/node_modules/', '/public/'],
 };
