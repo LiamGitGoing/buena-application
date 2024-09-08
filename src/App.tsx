@@ -1,26 +1,44 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import store from './context/store';
+import PersonalInfo from './pages/PersonalInfo';
+import SalaryIndications from './pages/SalaryIndications';
+import Summary from './pages/Summary';
+import NotFound from './pages/NotFound';
+import Header from './components/Header';
+import EntryPage from './pages/EntryPage';
+import { ThemeProvider } from 'styled-components';
+import { ConfigProvider } from 'antd';
+import { antTheme } from './styles/antTheme';
+import { theme } from './styles/theme';
+import './styles/global.css';
+import { Wrapper } from './AppStyled';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Wrapper>
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <ConfigProvider theme={antTheme}>
+            <Router>
+              <Header />
+              <Routes>
+                <Route path='/' element={<EntryPage />} />
+                <Route path='/personal-info' element={<PersonalInfo />} />
+                <Route
+                  path='/salary-indications'
+                  element={<SalaryIndications />}
+                />
+                <Route path='/summary' element={<Summary />} />
+                <Route path='*' element={<NotFound />} />
+              </Routes>
+            </Router>
+          </ConfigProvider>
+        </ThemeProvider>
+      </Provider>
+    </Wrapper>
   );
-}
+};
 
 export default App;
