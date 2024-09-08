@@ -32,7 +32,8 @@ export const LabelWrapper = styled.div`
 `;
 
 export const ValueWrapper = styled.div`
-  flex: 0 0 100px;
+  flex: 0 0 auto;
   text-align: left;
   padding-left: 10px;
+  white-space: nowrap;
 `;
