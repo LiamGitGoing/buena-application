@@ -15,24 +15,32 @@ Make sure you have the following installed:
 
 To get started, clone the repository to your local machine using the following command:
 
-`git clone https://github.com/LiamGitGoing/buena-application.git`
+```
+git clone https://github.com/LiamGitGoing/buena-application.git
+```
 
 Navigate into the project directory:
 
 
-`cd buena-application`
+```
+cd buena-application
+```
 
 ### Install Dependencies
 
 After cloning the repository, install the necessary dependencies:
 
-`yarn install`
+```
+yarn install
+```
 
 ### Start the Development Server
 
 Once the dependencies are installed, you can start the development server. This will run the app locally and open it in your default browser:
 
-`yarn start`
+```
+yarn start
+```
 
 The app should now be running at http://localhost:3000.
 
@@ -40,7 +48,9 @@ The app should now be running at http://localhost:3000.
 
 To run the test suite, you can use the following command:
 
-`yarn test`
+```
+yarn test
+```
 
 This will run the test cases written for the application using Jest and React Testing Library.
 
