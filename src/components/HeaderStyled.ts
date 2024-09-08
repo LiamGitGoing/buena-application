@@ -8,5 +8,3 @@ export const HeaderWrapper = styled.header`
   padding-left: 2.5rem;
   padding-right: 2.5rem;
 `;
-
-export const LogoWrapper = styled.div``;
